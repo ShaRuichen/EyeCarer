@@ -144,7 +144,7 @@ namespace EyeCarer
             void rateTextBox_TextChanged(object sender, EventArgs e)
             {
                 var textBox = (TextBox)sender;
-                if (textBox.Text[0] == '.')
+                if (textBox.Text.Length > 0 && textBox.Text[0] == '.')
                 {
                     textBox.Text = '0' + textBox.Text;
                 }
@@ -196,6 +196,14 @@ namespace EyeCarer
                     if (red >= sleep)
                     {
                         throw new Exception("红色警告时间必须小于强制休眠时间");
+                    }
+                    if (rate == 0)
+                    {
+                        throw new Exception("效率不能是0");
+                    }
+                    if (sleep / rate > 19800)
+                    {
+                        throw new Exception("强制休眠的总时间不能超过6个小时");
                     }
                 }
                 catch (Exception exception)

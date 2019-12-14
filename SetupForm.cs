@@ -129,6 +129,17 @@ namespace EyeCarer
                 {
                     e.Handled = true;
                 }
+                if (e.KeyChar != '.')
+                {
+                    var textBox = (TextBox)sender;
+                    foreach (char ch in textBox.Text)
+                    {
+                        if (ch == '.')
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
             }
             rateTextBox.KeyPress += rateTextBox_KeyPress;
             Controls.Add(rateTextBox);

@@ -98,8 +98,5 @@
   <ItemGroup>
     <None Include="red_eye.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\HappyBirthday.exe" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

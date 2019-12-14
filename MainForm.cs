@@ -33,6 +33,7 @@ namespace EyeCarer
             Height = screenHeight / 4;
             Left = screenWidth - Width;
             Top = screenHeight - Height;
+            WindowState = FormWindowState.Minimized;
             #endregion
 
             var clientWidth = ClientSize.Width;
@@ -178,8 +179,10 @@ namespace EyeCarer
                 ShowInTaskbar = true;
             }
             #region 右键菜单
-            notifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            notifyIcon.ContextMenuStrip.Font = isUsedLabel.Font;
+            notifyIcon.ContextMenuStrip = new ContextMenuStrip
+            {
+                Font = isUsedLabel.Font
+            };
 
             powerBootMenuItem.Checked = powerBootCheckBox.Checked;
             void PowerBootMenuItem_Click(object sender1, EventArgs e1)

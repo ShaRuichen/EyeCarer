@@ -28,7 +28,16 @@ namespace EyeCarer
                 var textBox = (TextBox)sender;
                 if (textBox.Text.Length == 0 || textBox.Text[textBox.Text.Length - 1] != 's')
                 {
-                    textBox.Text += 's';
+                    string str = "";
+                    foreach (char ch in textBox.Text)
+                    {
+                        if (ch != 's')
+                        {
+                            str += ch;
+                        }
+                    }
+                    textBox.Text = str + 's';
+                    textBox.Select(textBox.Text.Length - 1, 0);
                 }
             }
             void TextBox_KeyPress(object sender, KeyPressEventArgs e)

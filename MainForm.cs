@@ -33,7 +33,6 @@ namespace EyeCarer
             Height = screenHeight / 4;
             Left = screenWidth - Width;
             Top = screenHeight - Height;
-            WindowState = FormWindowState.Minimized;
             #endregion
 
             var clientWidth = ClientSize.Width;
@@ -45,7 +44,7 @@ namespace EyeCarer
                 AutoSize = true,
                 Font = new Font("宋体", 0.0003F * (Width * Height)),
                 Text = "已用时间：",
-                Location = new Point(0, clientHeight / 8),
+                Location = new Point(clientWidth / 20, clientHeight / 8),
             };
             Controls.Add(usedTimeLabel);
             #endregion
@@ -329,6 +328,7 @@ namespace EyeCarer
             };
             timer.Tick += Timer_Tick;
             #endregion
+            WindowState = FormWindowState.Minimized;
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

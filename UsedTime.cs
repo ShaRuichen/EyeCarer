@@ -24,7 +24,7 @@ namespace EyeCarer
         public static int TO_RED_TIME = 3600;
         public static int TO_SLEEP_TIME = 5400;
         private const int RED_WARNING_INTERVAL = 300;
-        private const int JUDGE_REST_Time = 60;
+        private const int JUDGE_REST_Time = 90;
         public static double REST_EFFICIENCY = 3.0;
 
         /// <summary>

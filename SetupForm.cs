@@ -129,7 +129,7 @@ namespace EyeCarer
                 {
                     e.Handled = true;
                 }
-                if (e.KeyChar != '.')
+                if (e.KeyChar == '.')
                 {
                     var textBox = (TextBox)sender;
                     foreach (char ch in textBox.Text)
@@ -141,7 +141,16 @@ namespace EyeCarer
                     }
                 }
             }
+            void rateTextBox_TextChanged(object sender, EventArgs e)
+            {
+                var textBox = (TextBox)sender;
+                if (textBox.Text[0] == '.')
+                {
+                    textBox.Text = '0' + textBox.Text;
+                }
+            }
             rateTextBox.KeyPress += rateTextBox_KeyPress;
+            rateTextBox.TextChanged += rateTextBox_TextChanged;
             Controls.Add(rateTextBox);
             #endregion
             #region 恢复

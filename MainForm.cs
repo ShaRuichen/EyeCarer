@@ -340,6 +340,15 @@ namespace EyeCarer
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            switch (e.CloseReason)
+            {
+                case CloseReason.WindowsShutDown:
+                    break;
+                default:
+                    e.Cancel = true;
+                    return;
+            }
+
             notifyIcon.Dispose();
         }
 

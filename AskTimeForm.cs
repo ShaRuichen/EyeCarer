@@ -22,7 +22,7 @@ namespace EyeCarer
         private void Init()
         {
             Size = Screen.PrimaryScreen.Bounds.Size;
-//            TopMost = true;
+            TopMost = true;
 
             var textBox = new TextBox()
             {

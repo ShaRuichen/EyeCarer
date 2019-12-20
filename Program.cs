@@ -40,6 +40,12 @@ namespace EyeCarer
             }
             else
             {
+                if (UsedTime.LeftTime == int.MaxValue)
+                {
+                    var form = new AskTimeForm();
+                    form.Show();
+                }
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());

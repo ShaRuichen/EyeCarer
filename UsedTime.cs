@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 using Microsoft.Win32;
 
@@ -15,13 +16,17 @@ namespace EyeCarer
     /// </summary>
     internal static class UsedTime
     {
-
         public static int TO_YELLO_TIME = 2700;
         public static int TO_RED_TIME = 3600;
         public static int TO_SLEEP_TIME = 5400;
         private const int RED_WARNING_INTERVAL = 300;
         private const int JUDGE_REST_Time = 90;
         public static double REST_EFFICIENCY = 3.0;
+
+        /// <summary>
+        /// 获取或设置剩余时间
+        /// </summary>
+        public static int LeftTime { get; set; } = int.MaxValue;
 
         /// <summary>
         /// 图标颜色的枚举
@@ -71,6 +76,8 @@ namespace EyeCarer
                             usedTime += addSeconds;
                             CountCacheUsedTime();
                             result = cacheUsedTime;
+
+                            DecreaseLeftTime(addSeconds);
                         }
                         #endregion
                         #region 不曾有中断操作
@@ -303,6 +310,8 @@ namespace EyeCarer
         /// <return>总时间</return>
         private static int ContinueUse()
         {
+            DecreaseLeftTime();
+
             usedTime++;
             return ++cacheUsedTime;
         }
@@ -358,6 +367,19 @@ namespace EyeCarer
                 CountCacheUsedTime();
             }
             #endregion
+        }
+
+        /// <summary>
+        /// 将剩余时间减少time秒并执行其他操作
+        /// </summary>
+        private static void DecreaseLeftTime(int time = 1)
+        {
+            LeftTime -= time;
+            
+            if (LeftTime < 0)
+            {
+                Process.Start("shutdown.exe", "-s");
+            }
         }
 
         private static bool IsRest = false;

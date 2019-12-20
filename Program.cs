@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace EyeCarer
 {

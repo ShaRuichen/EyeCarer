@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Security.Principal;
 using System.Windows.Forms;
-using Microsoft.Win32;
 using static EyeCarer.Properties.Resources;
 
 namespace EyeCarer
@@ -223,7 +223,7 @@ namespace EyeCarer
             notifyIcon.ContextMenuStrip.Items.Add(powerBootMenuItem);
             notifyIcon.ContextMenuStrip.Items.AddRange(usageMenuItems);
             notifyIcon.ContextMenuStrip.Items.Add(setupMenuItem);
-//            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
+            //            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
             #endregion
             notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
             void NotifyIcon_Click(object sender1, EventArgs e1)
@@ -309,7 +309,7 @@ namespace EyeCarer
                 int leftTime = UsedTime.LeftTime;
                 if (WindowState == FormWindowState.Minimized)
                 {
-                    notifyIcon.Text = $"护眼宝\n{usedSeconds}\n{usage}\n剩余{leftTime}";
+                    notifyIcon.Text = $"护眼宝\n{usedSeconds}/{leftTime}\n{usage}";
                     timeMenuItem.Text = $"已使用：{usedSeconds}";
                     leftTimeMenuItem.Text = $"剩余时间：{leftTime}";
                 }

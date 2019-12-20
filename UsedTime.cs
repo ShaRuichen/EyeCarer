@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
-
-using Microsoft.Win32;
 
 namespace EyeCarer
 {
@@ -375,7 +374,7 @@ namespace EyeCarer
         private static void DecreaseLeftTime(int time = 1)
         {
             LeftTime -= time;
-            
+
             if (LeftTime < 0)
             {
                 Process.Start("shutdown.exe", "-s");

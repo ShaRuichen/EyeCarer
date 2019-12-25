@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Security.Principal;
-using System.Diagnostics;
-
-using Microsoft.Win32;
 using System.ComponentModel;
-using System.IO;
+using System.Diagnostics;
+using System.Security.Principal;
+using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace EyeCarer
 {

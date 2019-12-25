@@ -157,16 +157,15 @@ namespace EyeCarer
             setupButton.Click += Setup_Click;
             Controls.Add(setupButton);
             #endregion
-            #region 任务栏图标
+            #region 托盘图标
             notifyIcon = new NotifyIcon()
             {
                 Icon = BlueEye,
-                Visible = false,
+                Visible = true,
                 Text = "护眼宝",
             };
             void NotifyIcon_DoubleClick(object sender1, EventArgs e1)
             {
-                notifyIcon.Visible = false;
                 WindowState = FormWindowState.Normal;
                 ShowInTaskbar = true;
             }
@@ -334,7 +333,6 @@ namespace EyeCarer
             if (WindowState == FormWindowState.Minimized)
             {
                 ShowInTaskbar = false;
-                notifyIcon.Visible = true;
             }
         }
 

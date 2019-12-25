@@ -204,26 +204,23 @@ namespace EyeCarer
             usageMenuItems[0].Checked = true;
             usageMenuItems[0].Enabled = false;
 
-            //var exitMenuItem = new ToolStripMenuItem("退出");
-            //void ExitMenuItem_Click(object sender1, EventArgs e1)
-            //{
-            //    Close();
-            //}
-            //exitMenuItem.Click += ExitMenuItem_Click;
+            var exitMenuItem = new ToolStripMenuItem("退出");
+            void ExitMenuItem_Click(object sender1, EventArgs e1)
+            {
+                Close();
+            }
+            exitMenuItem.Click += ExitMenuItem_Click;
 
             var setupMenuItem = new ToolStripMenuItem("设置");
             setupMenuItem.Click += Setup_Click;
 
             var timeMenuItem = new ToolStripMenuItem();
 
-            var leftTimeMenuItem = new ToolStripMenuItem();
-
             notifyIcon.ContextMenuStrip.Items.Add(timeMenuItem);
-            notifyIcon.ContextMenuStrip.Items.Add(leftTimeMenuItem);
             notifyIcon.ContextMenuStrip.Items.Add(powerBootMenuItem);
             notifyIcon.ContextMenuStrip.Items.AddRange(usageMenuItems);
             notifyIcon.ContextMenuStrip.Items.Add(setupMenuItem);
-//            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
+            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
             #endregion
             notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
             void NotifyIcon_Click(object sender1, EventArgs e1)
@@ -306,16 +303,14 @@ namespace EyeCarer
             {
                 int usedSeconds = UsedTime.CountUsedTime(out bool isUsed) * SystemUsage.INTERVAL_SECONDS;
                 string usage = isUsed ? "正在使用" : "未使用";
-                int leftTime = UsedTime.LeftTime;
                 if (WindowState == FormWindowState.Minimized)
                 {
-                    notifyIcon.Text = $"护眼宝\n{usedSeconds}\n{usage}\n剩余{leftTime}";
+                    notifyIcon.Text = $"护眼宝\n{usedSeconds}\n{usage}";
                     timeMenuItem.Text = $"已使用：{usedSeconds}";
-                    leftTimeMenuItem.Text = $"剩余时间：{leftTime}";
                 }
                 else if (WindowState == FormWindowState.Normal)
                 {
-                    usedSecondsLabel.Text = $"{usedSeconds}/{leftTime}";
+                    usedSecondsLabel.Text = usedSeconds.ToString();
                     isUsedLabel.Text = usage;
                 }
             }

@@ -219,7 +219,7 @@ namespace EyeCarer
             notifyIcon.ContextMenuStrip.Items.Add(powerBootMenuItem);
             notifyIcon.ContextMenuStrip.Items.AddRange(usageMenuItems);
             notifyIcon.ContextMenuStrip.Items.Add(setupMenuItem);
-            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
+//            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
             #endregion
             notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
             void NotifyIcon_Click(object sender1, EventArgs e1)
@@ -338,6 +338,12 @@ namespace EyeCarer
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason != CloseReason.WindowsShutDown)
+            {
+                e.Cancel = true;
+                return;
+            }
+
             notifyIcon.Dispose();
         }
 

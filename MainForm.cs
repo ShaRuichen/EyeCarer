@@ -70,8 +70,8 @@ namespace EyeCarer
             var usageMenuItems = new ToolStripMenuItem[]
             {
                 new ToolStripMenuItem("自动判断"),
-                new ToolStripMenuItem("使用中"),
-                new ToolStripMenuItem("未使用"),
+//                new ToolStripMenuItem("使用中"),
+//                new ToolStripMenuItem("未使用"),
             };
             void UsageComboBox_SelectedIndexChanged(object sender1, EventArgs e1)
             {
@@ -217,7 +217,7 @@ namespace EyeCarer
 
             notifyIcon.ContextMenuStrip.Items.Add(timeMenuItem);
             notifyIcon.ContextMenuStrip.Items.Add(powerBootMenuItem);
-            notifyIcon.ContextMenuStrip.Items.AddRange(usageMenuItems);
+//            notifyIcon.ContextMenuStrip.Items.AddRange(usageMenuItems);
             notifyIcon.ContextMenuStrip.Items.Add(setupMenuItem);
 //            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
             #endregion

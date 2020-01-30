@@ -14,12 +14,12 @@ namespace EyeCarer
         /// <summary>
         /// 支持间隔多少毫秒获取一次操作
         /// </summary>
-        public const int INTERVAL = 1000;
+        public const int Interval = 1000;
 
         /// <summary>
         /// 支持间隔多少秒获取一次操作
         /// </summary>
-        public const int INTERVAL_SECONDS = 1;
+        public const int IntervalSeconds = 1;
 
         /// <summary>
         /// 获取系统现在是否有多媒体应用程序正在播放
@@ -51,7 +51,7 @@ namespace EyeCarer
                     throw new Win32Exception();
                 }
                 int freeMiliseconds = Environment.TickCount - lastInputInfo.dwTime;
-                return freeMiliseconds < INTERVAL;
+                return freeMiliseconds < Interval;
             }
         }
 

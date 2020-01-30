@@ -1,8 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+
+using EyeCarer.Properties;
+
 
 namespace EyeCarer
 {
@@ -56,7 +57,7 @@ namespace EyeCarer
                 Font = yellowWarningLabel.Font,
                 AutoSize = true,
                 Location = yellowWarningLabel.Location + new Size(Width / 2, 0),
-                Text = UsedTime.TO_YELLO_TIME.ToString() + 's',
+                Text = UsedTime.ToYelloTime.ToString() + 's',
             };
             yellowWarningTextBox.TextChanged += TextBox_TextChanged;
             yellowWarningTextBox.KeyPress += TextBox_KeyPress;
@@ -76,7 +77,7 @@ namespace EyeCarer
                 Font = yellowWarningLabel.Font,
                 AutoSize = true,
                 Location = redWarningLabel.Location + new Size(Width / 2, 0),
-                Text = UsedTime.TO_RED_TIME.ToString() + 's',
+                Text = UsedTime.ToRedTime.ToString() + 's',
             };
             redWarningTextBox.TextChanged += TextBox_TextChanged;
             redWarningTextBox.KeyPress += TextBox_KeyPress;
@@ -96,7 +97,7 @@ namespace EyeCarer
                 Font = yellowWarningLabel.Font,
                 AutoSize = true,
                 Location = sleepLabel.Location + new Size(Width / 2, 0),
-                Text = UsedTime.TO_SLEEP_TIME.ToString() + 's',
+                Text = UsedTime.ToSleepTime.ToString() + 's',
             };
             sleepTextBox.TextChanged += TextBox_TextChanged;
             sleepTextBox.KeyPress += TextBox_KeyPress;
@@ -115,7 +116,7 @@ namespace EyeCarer
             {
                 Font = yellowWarningLabel.Font,
                 AutoSize = true,
-                Text = UsedTime.REST_EFFICIENCY.ToString(),
+                Text = UsedTime.RestEfficiency.ToString(),
                 Location = rateLabel.Location + new Size(Width / 2, 0),
             };
             void rateTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -158,10 +159,10 @@ namespace EyeCarer
             };
             void DefaultButton_Click(object sender, EventArgs e)
             {
-                yellowWarningTextBox.Text = UsedTime.TO_YELLO_TIME.ToString() + 's';
-                redWarningTextBox.Text = UsedTime.TO_RED_TIME.ToString() + 's';
-                sleepTextBox.Text = UsedTime.TO_SLEEP_TIME.ToString() + 's';
-                rateTextBox.Text = UsedTime.REST_EFFICIENCY.ToString();
+                yellowWarningTextBox.Text = UsedTime.ToYelloTime.ToString() + 's';
+                redWarningTextBox.Text = UsedTime.ToRedTime.ToString() + 's';
+                sleepTextBox.Text = UsedTime.ToSleepTime.ToString() + 's';
+                rateTextBox.Text = UsedTime.RestEfficiency.ToString();
             }
             defaultButton.Click += DefaultButton_Click;
             Controls.Add(defaultButton);
@@ -207,35 +208,15 @@ namespace EyeCarer
                     DefaultButton_Click(null, null);
                     return;
                 }
-                string args = $"-setup {yellow} {red} {sleep} {rate}";
-                var startInfo = new ProcessStartInfo(Application.ExecutablePath, args)
-                {
-                    WorkingDirectory = Environment.CurrentDirectory,
-                    FileName = Application.ExecutablePath,
-                    UseShellExecute = true,
-                    Verb = "runas",
-                };
-                try
-                {
-                    Process.Start(startInfo);
-                }
-                catch (Win32Exception exception)
-                {
-                    int errCode = exception.NativeErrorCode;
-                    //操作被用户取消
-                    if (errCode == 1223)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                UsedTime.TO_YELLO_TIME = yellow;
-                UsedTime.TO_RED_TIME = red;
-                UsedTime.TO_SLEEP_TIME = sleep;
-                UsedTime.REST_EFFICIENCY = rate;
+                Settings.Default.ToYelloTime = yellow;
+                Settings.Default.ToRedTime = red;
+                Settings.Default.ToSleepTime = sleep;
+                Settings.Default.RestEfficiency = rate;
+                Settings.Default.Save();
+                UsedTime.ToYelloTime = yellow;
+                UsedTime.ToRedTime = red;
+                UsedTime.ToSleepTime = sleep;
+                UsedTime.RestEfficiency = rate;
                 Dispose();
             }
             OKButton.Click += OKButton_Click;

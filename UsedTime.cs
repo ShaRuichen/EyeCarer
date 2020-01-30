@@ -2,6 +2,9 @@
 
 using Microsoft.Win32;
 
+using EyeCarer.Properties;
+
+
 namespace EyeCarer
 {
 
@@ -16,12 +19,12 @@ namespace EyeCarer
     internal static class UsedTime
     {
 
-        public static int TO_YELLO_TIME = 2700;
-        public static int TO_RED_TIME = 3600;
-        public static int TO_SLEEP_TIME = 5400;
-        private const int RED_WARNING_INTERVAL = 300;
-        private const int JUDGE_REST_Time = 90;
-        public static double REST_EFFICIENCY = 3.0;
+        public static int ToYelloTime { get; set; } = Settings.Default.ToYelloTime;
+        public static int ToRedTime { get; set; } = Settings.Default.ToRedTime;
+        public static int ToSleepTime { get; set; } = Settings.Default.ToSleepTime;
+        public static double RestEfficiency { get; set; } = Settings.Default.RestEfficiency;
+        private const int RedWarningInterval = 300;
+        private const int JudgeRestTime = 90;
 
         /// <summary>
         /// 图标颜色的枚举
@@ -111,10 +114,10 @@ namespace EyeCarer
                     {
                         gapTime++;
                         #region 判定现在为休息状态了
-                        if (gapTime == JUDGE_REST_Time)
+                        if (gapTime == JudgeRestTime)
                         {
                             IsRest = true;
-                            restTime += JUDGE_REST_Time;
+                            restTime += JudgeRestTime;
                             gapTime = 0;
                             JudgeCompleteRest();
                             result = cacheUsedTime;
@@ -138,37 +141,37 @@ namespace EyeCarer
 
             #region 分发事件
             int time = result - gapTime;
-            if (time >= TO_SLEEP_TIME)
+            if (time >= ToSleepTime)
             {
                 mustSleepTime = Environment.TickCount;
                 Sleep();
                 return result;
             }
-            if (time < TO_YELLO_TIME && iconColor != IconColor.Blue)
+            if (time < ToYelloTime && iconColor != IconColor.Blue)
             {
                 iconColor = IconColor.Blue;
                 ChangeIconColor(IconColor.Blue);
             }
-            else if (time >= TO_YELLO_TIME && time < TO_RED_TIME && iconColor != IconColor.Yello)
+            else if (time >= ToYelloTime && time < ToRedTime && iconColor != IconColor.Yello)
             {
                 iconColor = IconColor.Yello;
                 ChangeIconColor(IconColor.Yello);
             }
-            else if (time >= TO_RED_TIME && iconColor != IconColor.Red)
+            else if (time >= ToRedTime && iconColor != IconColor.Red)
             {
                 iconColor = IconColor.Red;
                 ChangeIconColor(IconColor.Red);
             }
             if (isUsed)
             {
-                if (time >= TO_YELLO_TIME && time < TO_RED_TIME && warningTimes == 0)
+                if (time >= ToYelloTime && time < ToRedTime && warningTimes == 0)
                 {
                     warningTimes++;
                     Warning(time);
                 }
-                else if (time >= TO_RED_TIME)
+                else if (time >= ToRedTime)
                 {
-                    int shouldTimes = (time - TO_RED_TIME) / RED_WARNING_INTERVAL + 2;
+                    int shouldTimes = (time - ToRedTime) / RedWarningInterval + 2;
                     if (shouldTimes > warningTimes)
                     {
                         warningTimes++;
@@ -178,17 +181,17 @@ namespace EyeCarer
             }
             else
             {
-                if (time < TO_YELLO_TIME && warningTimes > 0)
+                if (time < ToYelloTime && warningTimes > 0)
                 {
                     warningTimes = 0;
                 }
-                else if (time >= TO_YELLO_TIME && time < TO_RED_TIME && warningTimes > 1)
+                else if (time >= ToYelloTime && time < ToRedTime && warningTimes > 1)
                 {
                     warningTimes = 1;
                 }
-                else if (time >= TO_RED_TIME)
+                else if (time >= ToRedTime)
                 {
-                    int shouldTimes = (time - TO_RED_TIME) / RED_WARNING_INTERVAL + 2;
+                    int shouldTimes = (time - ToRedTime) / RedWarningInterval + 2;
                     if (shouldTimes < warningTimes)
                     {
                         warningTimes = shouldTimes;
@@ -253,7 +256,7 @@ namespace EyeCarer
                 {
                     if (mustSleepTime > 0)
                     {
-                        if ((Environment.TickCount - mustSleepTime) / 1000 * REST_EFFICIENCY >= TO_SLEEP_TIME)
+                        if ((Environment.TickCount - mustSleepTime) / 1000 * RestEfficiency >= ToSleepTime)
                         {
                             mustSleepTime = 0;
                             usedTime = 0;
@@ -275,20 +278,20 @@ namespace EyeCarer
                         int wakeTime = Environment.TickCount;
                         int sleepMiliseconds = wakeTime - sleepTime;
                         sleepTime = 0;
-                        int hasSleptTime = sleepMiliseconds / SystemUsage.INTERVAL;
+                        int hasSleptTime = sleepMiliseconds / SystemUsage.Interval;
                         restTime += hasSleptTime;
                         JudgeCompleteRest();
-                        if (cacheUsedTime < TO_YELLO_TIME)
+                        if (cacheUsedTime < ToYelloTime)
                         {
                             warningTimes = 0;
                         }
-                        else if (cacheUsedTime < TO_RED_TIME)
+                        else if (cacheUsedTime < ToRedTime)
                         {
                             warningTimes = 1;
                         }
                         else
                         {
-                            warningTimes = 2 + (cacheUsedTime - TO_RED_TIME) / RED_WARNING_INTERVAL;
+                            warningTimes = 2 + (cacheUsedTime - ToRedTime) / RedWarningInterval;
                         }
                     }
                 }
@@ -334,7 +337,7 @@ namespace EyeCarer
         /// </summary>
         private static void CountCacheUsedTime()
         {
-            cacheUsedTime = (int)(usedTime - restTime * REST_EFFICIENCY);
+            cacheUsedTime = (int)(usedTime - restTime * RestEfficiency);
         }
 
         /// <summary>
@@ -345,7 +348,7 @@ namespace EyeCarer
         private static void JudgeCompleteRest()
         {
             #region 若现在完全休息好了
-            if (restTime * REST_EFFICIENCY >= usedTime)
+            if (restTime * RestEfficiency >= usedTime)
             {
                 restTime = 0;
                 usedTime = 0;

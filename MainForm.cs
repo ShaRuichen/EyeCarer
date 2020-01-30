@@ -258,7 +258,7 @@ namespace EyeCarer
                     TopMost = true,
                     ShowIcon = false,
                 };
-                if (time < UsedTime.TO_RED_TIME)
+                if (time < UsedTime.ToRedTime)
                 {
                     warningForm.BackColor = Color.Yellow;
                 }
@@ -300,7 +300,7 @@ namespace EyeCarer
             #region 计时器
             void Timer_Tick(object sender1, EventArgs e1)
             {
-                int usedSeconds = UsedTime.CountUsedTime(out bool isUsed) * SystemUsage.INTERVAL_SECONDS;
+                int usedSeconds = UsedTime.CountUsedTime(out bool isUsed) * SystemUsage.IntervalSeconds;
                 string usage = isUsed ? "正在使用" : "未使用";
                 if (WindowState == FormWindowState.Minimized)
                 {
@@ -315,7 +315,7 @@ namespace EyeCarer
             }
             var timer = new Timer()
             {
-                Interval = SystemUsage.INTERVAL,
+                Interval = SystemUsage.Interval,
                 Enabled = true,
             };
             timer.Tick += Timer_Tick;

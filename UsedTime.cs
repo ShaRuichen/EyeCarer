@@ -223,6 +223,15 @@ namespace EyeCarer
             }
         }
 
+        /// <summary>
+        /// 重置警告等级
+        /// </summary>
+        public static void ResetWarning()
+        {
+            warningTimes = 0;
+            iconColor = IconColor.Blue;
+        }
+
         public delegate void WarningHandler(int time);
         /// <summary>
         /// 需要弹出警告窗口时

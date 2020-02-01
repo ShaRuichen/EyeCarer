@@ -217,6 +217,7 @@ namespace EyeCarer
                 UsedTime.ToRedTime = red;
                 UsedTime.ToSleepTime = sleep;
                 UsedTime.RestEfficiency = rate;
+                UsedTime.ResetWarning();
                 Dispose();
             }
             OKButton.Click += OKButton_Click;
